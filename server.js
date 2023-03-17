@@ -1,3 +1,4 @@
+import "express-async-errors";
 import express from "express";
 const app = express();
 import dotenv from "dotenv";
@@ -11,6 +12,7 @@ import jobsRouter from "./routes/jobsRoutes.js";
 //middleware
 import notFoundMiddlFeware from "./middleware/not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("welcome");
