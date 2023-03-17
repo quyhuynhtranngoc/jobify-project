@@ -1,21 +1,30 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { FormRow, Logo, Alert } from "../components";
+import { Alert, FormRow, Logo } from "../components";
+import { useAppContext } from "../context/appContext";
 const initialState = {
   name: "",
   email: "",
   password: "",
   isMember: true,
-  showAlert: true,
 };
+
 export default function Register() {
   const [values, setValues] = useState(initialState);
+  const { isLoading, showAlert, displayAlert } = useAppContext();
+
   const handleChange = (e) => {
-    console.log(e.target);
+    setValues({ ...values, [e.target.name]: e.target.value });
   };
+
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target);
+    const { name, email, password, isMember } = values;
+    if (!email || !password || (!isMember && !name)) {
+      displayAlert();
+      return;
+    }
+    console.log(values);
   };
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
@@ -25,6 +34,7 @@ export default function Register() {
       <form className="form" onSubmit={onSubmit}>
         <Logo />
         <h3>{values.isMember ? "Login" : "Register"}</h3>
+        {showAlert && <Alert />}
         {values.showAlert && <Alert />}
         {!values.isMember && (
           <FormRow
