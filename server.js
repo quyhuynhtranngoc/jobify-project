@@ -2,17 +2,24 @@ import express from "express";
 const app = express();
 import dotenv from "dotenv";
 dotenv.config();
+
 import connectDB from "./db/connect.js";
+//routes
+import authRouter from "./routes/authRoutes.js";
+import jobsRouter from "./routes/jobsRoutes.js";
+
 //middleware
-import notFoundMiddleware from "./middleware/not-found.js";
+import notFoundMiddlFeware from "./middleware/not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
 
 app.get("/", (req, res) => {
-  throw new Error("error");
-  res.send("welcome!");
+  res.send("welcome");
 });
 
-app.use(notFoundMiddleware);
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/jobs", jobsRouter);
+
+app.use(notFoundMiddlFeware);
 app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 5000;
@@ -28,4 +35,4 @@ const start = async () => {
   }
 };
 
-start()
+start();
