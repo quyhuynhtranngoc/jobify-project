@@ -13,7 +13,11 @@ import jobsRouter from "./routes/jobsRoutes.js";
 //middleware
 import notFoundMiddlFeware from "./middleware/not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
+import morgan from "morgan";
 
+if (process.env.NODE_ENV !== "production") {
+  app.use(morgan("dev"));
+}
 // app.use(cors());
 app.use(express.json());
 
