@@ -1,15 +1,21 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
 import styled from "styled-components";
+import { BigSidebar, Navbar, SmallSidebar } from "../../components";
 
 export default function SharedLayout() {
   return (
     <Wrapper>
-      <nav>
-        <Link to="all-jobs">all jobs</Link>
-        <Link to="add-job">add job</Link>
-      </nav>
-      <Outlet />
+      <main className="dashboard">
+        <SmallSidebar />
+        <BigSidebar />
+        <div>
+          <Navbar />
+          <div className="dashboard-page">
+            <Outlet />
+          </div>
+        </div>
+      </main>
     </Wrapper>
   );
 }
