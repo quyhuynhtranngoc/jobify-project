@@ -5,6 +5,7 @@ import Logo from "./Logo";
 import { useAppContext } from "../context/appContext";
 import { NavLink } from "react-router-dom";
 import links from "../utils/links";
+import NavLinks from "./NavLinks";
 
 export default function SmallSidebar() {
   const { showSidebar, toggleSidebar } = useAppContext();
@@ -22,24 +23,7 @@ export default function SmallSidebar() {
           <header>
             <Logo />
           </header>
-          <div className="nav-links">
-            {links.map((link) => {
-              const { text, path, id, icon } = link;
-              return (
-                <NavLink
-                  to={path}
-                  className={({ isActive }) =>
-                    isActive ? "nav-link active" : "nav-link"
-                  }
-                  key={id}
-                  onClick={toggleSidebar}
-                >
-                  <div className="icon">{icon}</div>
-                  {text}
-                </NavLink>
-              );
-            })}
-          </div>
+          <NavLinks toggleSidebar={toggleSidebar} />
         </div>
       </div>
     </Wrapper>
