@@ -35,7 +35,6 @@ const login = async (req, res) => {
     throw new UnAuthenticatedError("invalid credentials");
   }
 
-  console.log(user);
   const isPasswordCorrect = await user.comparePassword(password);
   if (!isPasswordCorrect) {
     throw new UnAuthenticatedError("invalid credentials");
@@ -47,7 +46,8 @@ const login = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  res.send("updateUser user");
+  console.log(req.user);
+  res.send("updateUser");
 };
 
 export { register, login, updateUser };
