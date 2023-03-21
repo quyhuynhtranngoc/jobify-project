@@ -17,7 +17,6 @@ export default function Profile() {
       displayAlert();
       return;
     }
-
     updateUser({ name, email, lastName, location });
   };
   return (
