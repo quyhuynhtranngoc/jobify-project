@@ -31,6 +31,7 @@ import {
   EDIT_JOB_ERROR,
   SHOW_STATS_BEGIN,
   SHOW_STATS_SUCCESS,
+  CLEAR_FILTERS,
 } from "./actions";
 import reducer from "./reducer";
 
@@ -62,6 +63,11 @@ const initialState = {
   numOfPages: 1,
   stats: {},
   monthlyApplications: [],
+  search: "",
+  searchStatus: "all",
+  searchType: "all",
+  sort: "latest",
+  sortOptions: ["latest", "oldest", "a-z", "z-a"],
 };
 
 const AppContext = React.createContext();
@@ -255,7 +261,12 @@ const AppProvider = ({ children }) => {
   };
 
   const getJobs = async () => {
-    let url = `/jobs`;
+    const { search, searchStatus, searchType, sort } = state;
+
+    let url = `/jobs?status=${searchStatus}&jobType=${searchType}&sort=${sort}`;
+    if (search) {
+      url = url + `&search=${search}`;
+    }
     dispatch({ type: GET_JOBS_BEGIN });
     try {
       const { data } = await authFetch(url);
@@ -269,7 +280,6 @@ const AppProvider = ({ children }) => {
         },
       });
     } catch (error) {
-      console.log(error.response);
       // logoutUser();
     }
     clearAlert();
@@ -337,6 +347,10 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const clearFilters = () => {
+    dispatch({ type: CLEAR_FILTERS });
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -354,6 +368,7 @@ const AppProvider = ({ children }) => {
         deleteJob,
         editJob,
         showStats,
+        clearFilters,
       }}
     >
       {children}
