@@ -50,7 +50,6 @@ export default function Register() {
         alertText: "User Created! Redirecting...",
       });
     }
-    console.log(values);
   };
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
