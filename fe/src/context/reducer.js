@@ -1,37 +1,33 @@
 import {
+  CHANGE_PAGE,
   CLEAR_ALERT,
-  DISPLAY_ALERT,
-  REGISTER_USER_BEGIN,
-  REGISTER_USER_SUCCESS,
-  REGISTER_USER_ERROR,
-  LOGIN_USER_BEGIN,
-  LOGIN_USER_SUCCESS,
-  LOGIN_USER_ERROR,
-  SETUP_USER_BEGIN,
-  SETUP_USER_SUCCESS,
-  SETUP_USER_ERROR,
-  TOGGLE_SIDEBAR,
-  LOGOUT_USER,
-  UPDATE_USER_BEGIN,
-  UPDATE_USER_SUCCESS,
-  UPDATE_USER_ERROR,
-  HANDLE_CHANGE,
+  CLEAR_FILTERS,
   CLEAR_VALUES,
+  CREATE_JOB_BEGIN,
   CREATE_JOB_ERROR,
   CREATE_JOB_SUCCESS,
-  CREATE_JOB_BEGIN,
-  GET_JOBS_BEGIN,
-  GET_JOBS_SUCCESS,
-  SET_EDIT_JOB,
   DELETE_JOB_BEGIN,
-  EDIT_JOB_SUCCESS,
+  DELETE_JOB_ERROR,
+  DISPLAY_ALERT,
   EDIT_JOB_BEGIN,
   EDIT_JOB_ERROR,
+  EDIT_JOB_SUCCESS,
+  GET_CURRENT_USER_BEGIN,
+  GET_CURRENT_USER_SUCCESS,
+  GET_JOBS_BEGIN,
+  GET_JOBS_SUCCESS,
+  HANDLE_CHANGE,
+  LOGOUT_USER,
+  SETUP_USER_BEGIN,
+  SETUP_USER_ERROR,
+  SETUP_USER_SUCCESS,
+  SET_EDIT_JOB,
   SHOW_STATS_BEGIN,
   SHOW_STATS_SUCCESS,
-  CLEAR_FILTERS,
-  CHANGE_PAGE,
-  DELETE_JOB_ERROR,
+  TOGGLE_SIDEBAR,
+  UPDATE_USER_BEGIN,
+  UPDATE_USER_ERROR,
+  UPDATE_USER_SUCCESS,
 } from "./actions";
 import { initialState } from "./appContext";
 
@@ -54,62 +50,6 @@ const reducer = (state, action) => {
     };
   }
 
-  if (action.type === REGISTER_USER_BEGIN) {
-    return { ...state, isLoading: true };
-  }
-
-  if (action.type === REGISTER_USER_SUCCESS) {
-    return {
-      ...state,
-      isLoading: false,
-      token: action.payload.token,
-      user: action.payload.user,
-      userLocation: action.payload.location,
-      jobLocation: action.payload.location,
-      showAlert: true,
-      alertType: "success",
-      alertText: "User Created! Redirecting...",
-    };
-  }
-
-  if (action.type === REGISTER_USER_ERROR) {
-    return {
-      ...state,
-      isLoading: false,
-      showAlert: true,
-      alertType: "danger",
-      alertText: action.payload.msg,
-    };
-  }
-
-  if (action.type === LOGIN_USER_BEGIN) {
-    return { ...state, isLoading: true };
-  }
-
-  if (action.type === LOGIN_USER_SUCCESS) {
-    return {
-      ...state,
-      isLoading: false,
-      token: action.payload.token,
-      user: action.payload.user,
-      userLocation: action.payload.location,
-      jobLocation: action.payload.location,
-      showAlert: true,
-      alertType: "success",
-      alertText: "Login Successful! Redirecting...",
-    };
-  }
-
-  if (action.type === LOGIN_USER_ERROR) {
-    return {
-      ...state,
-      isLoading: false,
-      showAlert: true,
-      alertType: "danger",
-      alertText: action.payload.msg,
-    };
-  }
-
   if (action.type === SETUP_USER_BEGIN) {
     return { ...state, isLoading: true };
   }
@@ -118,7 +58,6 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
-      token: action.payload.token,
       user: action.payload.user,
       userLocation: action.payload.location,
       jobLocation: action.payload.location,
@@ -146,9 +85,7 @@ const reducer = (state, action) => {
     return {
       ...initialState,
       user: null,
-      token: null,
-      userLocation: null,
-      jobLocation: null,
+      userLoading: false,
     };
   }
 
@@ -160,7 +97,6 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
-      token: action.payload.token,
       user: action.payload.user,
       userLocation: action.payload.location,
       jobLocation: action.payload.location,
@@ -334,6 +270,19 @@ const reducer = (state, action) => {
     return {
       ...state,
       page: action.payload.page,
+    };
+  }
+
+  if (action.type === GET_CURRENT_USER_BEGIN) {
+    return { ...state, userLoading: true, showAlert: false };
+  }
+  if (action.type === GET_CURRENT_USER_SUCCESS) {
+    return {
+      ...state,
+      userLoading: false,
+      user: action.payload.user,
+      userLocation: action.payload.location,
+      jobLocation: action.payload.location,
     };
   }
   throw new Error(`no such action: ${action.type}`);

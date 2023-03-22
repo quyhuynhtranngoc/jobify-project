@@ -1,35 +1,42 @@
 import main from "../assets/images/main.svg";
 import styled from "styled-components";
 import { Logo } from "../components";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { useAppContext } from "../context/appContext";
+import React from "react";
 export default function Landing() {
+  const { user } = useAppContext();
+
   return (
-    <Wrapper>
-      <nav>
-        <Logo />
-      </nav>
-      <div className="container page">
-        <div className="info">
-          <h1>
-            job <span>stracking</span> app
-          </h1>
-          <p>
-            I'm baby schlitz chicharrones lomo af post-ironic jianbing kinfolk
-            squid health goth ramps godard sartorial pabst. VHS gochujang raw
-            denim live-edge. Cornhole flexitarian franzen locavore snackwave
-            asymmetrical tbh schlitz. Cornhole master cleanse scenester
-            church-key authentic, before they sold out austin squid dreamcatcher
-            live-edge food truck. Mustache fam jean shorts, small batch salvia
-            yes plz sus humblebrag jianbing next level. Pour-over keffiyeh
-            austin cronut, ugh occupy synth irony.
-          </p>
-          <Link to="/register" className="btn btn-hero">
-            Login/Register
-          </Link>
+    <React.Fragment>
+      {user && <Navigate to="/" />}
+      <Wrapper>
+        <nav>
+          <Logo />
+        </nav>
+        <div className="container page">
+          <div className="info">
+            <h1>
+              job <span>stracking</span> app
+            </h1>
+            <p>
+              I'm baby schlitz chicharrones lomo af post-ironic jianbing kinfolk
+              squid health goth ramps godard sartorial pabst. VHS gochujang raw
+              denim live-edge. Cornhole flexitarian franzen locavore snackwave
+              asymmetrical tbh schlitz. Cornhole master cleanse scenester
+              church-key authentic, before they sold out austin squid
+              dreamcatcher live-edge food truck. Mustache fam jean shorts, small
+              batch salvia yes plz sus humblebrag jianbing next level. Pour-over
+              keffiyeh austin cronut, ugh occupy synth irony.
+            </p>
+            <Link to="/register" className="btn btn-hero">
+              Login/Register
+            </Link>
+          </div>
+          <img src={main} alt="job hunt" className="img main-img" />
         </div>
-        <img src={main} alt="job hunt" className="img main-img" />
-      </div>
-    </Wrapper>
+      </Wrapper>
+    </React.Fragment>
   );
 }
 
