@@ -10,7 +10,7 @@
     "server": "nodemon server --ignore fe",
     "client": "npm start --prefix fe",
     "start": "concurrently --kill-others-on-fail \" npm run server\" \" npm run client",
-    "setup-production": "npm run install-client && npm run build-client && npm install",
+    "setup-production": "npm run install-client && npm run build-fe && npm install",
     "install-client": "cd fe && npm install"
   },
   "repository": {
