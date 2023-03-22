@@ -3,6 +3,7 @@ import { useAppContext } from "../context/appContext";
 import Loading from "./Loading";
 import styled from "styled-components";
 import Job from "./Job";
+import PageBtnContainer from "./PageBtnContainer";
 export default function JobsContainer() {
   const {
     getJobs,
@@ -14,11 +15,12 @@ export default function JobsContainer() {
     searchStatus,
     searchType,
     sort,
+    numOfPages,
   } = useAppContext();
 
   useEffect(() => {
     getJobs();
-  }, [search, searchStatus, searchType, sort]);
+  }, [page, search, searchStatus, searchType, sort]);
 
   if (isLoading) {
     return <Loading center />;
@@ -41,6 +43,7 @@ export default function JobsContainer() {
           return <Job key={job._id} {...job} />;
         })}
       </div>
+      {numOfPages > 1 && <PageBtnContainer />}
     </Wrapper>
   );
 }
