@@ -218,7 +218,7 @@ const AppProvider = ({ children }) => {
   }, []);
 
   const setEditJob = (id) => {
-    dispatch({ type: SET_EDIT_JOB, payload: { id } });
+    dispatch({ type: SET_EDIT_JOB, payload: {   id } });
   };
 
   const deleteJob = async (jobId) => {
